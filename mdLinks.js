@@ -1,8 +1,8 @@
 
-const { isValidRoute,isFile,isMdFile,getAbsoluteRoute,getMdFiles } = require('./index.js');
+const { isValidRoute,isFile,isMdFile,getAbsoluteRoute,getMdFiles,isDirectory, } = require('./index.js');
 const path = require('path');
 
-const sampleFile = 'README.md';  // prueba incorrecta: /path/to/sample/file  prueba correcta ./samplesFiles
+const sampleFile = './samplesFiles';  // prueba incorrecta: /path/to/sample/file  prueba correcta ./samplesFiles
 
 if (isValidRoute(sampleFile)) {
   console.log(`${sampleFile} exists.`); 
@@ -29,6 +29,12 @@ if (path.isAbsolute(absoluteRoute)) {
 } else {
   console.log(`La ruta no es absoluta, aquí está resuelta: ${absoluteRoute}`);
 }
+
+if (isDirectory(sampleFile)) {
+  console.log(`${sampleFile} es un directorio.`);
+} else {
+  console.log(`${sampleFile} no es un directorio.`);
+}  
 
 const arrayMdFile = getMdFiles(sampleFile);
 if (arrayMdFile.length > 0) {

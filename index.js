@@ -9,7 +9,7 @@ const isFile = (route) => fs.statSync(route).isFile(); //funcion para ver si la 
 
 const isMdFile = (route) => (path.extname(route) === '.md');//FUNCION PARA VER SI TIENE EXTENCION MD
 
-const isDirectory=(route)=> fs.statSync(route).isDirectory();
+const isDirectory=(route)=> fs.statSync(route).isDirectory();//funcion para ver si es un directorio
 
 const getAbsoluteRoute = (route) => (path.isAbsolute(route) ? route : path.resolve(route));//hacerla absoluta 
 
@@ -36,6 +36,7 @@ module.exports = {
   isMdFile,
   getAbsoluteRoute,
   getMdFiles,
+  isDirectory,
 };
 
 
