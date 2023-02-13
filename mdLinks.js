@@ -64,4 +64,3 @@ mdFiles.forEach(file => console.log(getLinksMd(file)));
 //   } else {
 //     console.error(`The route ${sampleFile} doesn't exist`);
 //   }
-
