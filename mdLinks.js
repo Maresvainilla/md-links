@@ -1,61 +1,106 @@
 
-const { isValidRoute,isFile,isMdFile,getAbsoluteRoute,getMdFiles,isDirectory, } = require('./index.js');
+// const { isValidRoute,isFile,isMdFile,getAbsoluteRoute,getMdFiles, getLinksMd,} = require('./index.js');
 const path = require('path');
 
-const sampleFile = './samplesFiles';  // prueba incorrecta: /path/to/sample/file  prueba correcta ./samplesFiles
+//  const sampleFile = './samplesFiles';  // prueba incorrecta: /path/to/sample/file  prueba correcta ./samplesFiles
+  
+const { validateLinks } = require('./axiosvalidate.js');
 
-if (isValidRoute(sampleFile)) {
-  console.log(`${sampleFile} exists.`); 
-} else {
-  console.log(`${sampleFile} does not exist.`);
-}
- 
-if (isFile(sampleFile)) {
-    console.log(`${sampleFile} is a file`);
-  } else {
-    console.log(`${sampleFile} is not a file`);
-  }
 
-  if (isMdFile(sampleFile)) {
-    console.log(`${sampleFile} is an  .md file `);
-  } else {
-    console.log(`${sampleFile} is NOPT a .md file`);
-  }
+// Utilizando la promesa con .then() y .catch()
+// getLinksMd('./samplesFiles')
 
-  const absoluteRoute = getAbsoluteRoute(sampleFile);
+//   .then((arrayofLinks) => {
+//     console.log(arrayofLinks);
+//   })
+//   .catch((err) => {
+//     console.error(err);
+//   });
 
-if (path.isAbsolute(absoluteRoute)) {
-  console.log(`La ruta es absoluta: ${absoluteRoute}`);
-} else {
-  console.log(`La ruta no es absoluta, aquí está resuelta: ${absoluteRoute}`);
-}
-
-if (isDirectory(sampleFile)) {
-  console.log(`${sampleFile} es un directorio.`);
-} else {
-  console.log(`${sampleFile} no es un directorio.`);
-}  
-
-const arrayMdFile = getMdFiles(sampleFile);
-if (arrayMdFile.length > 0) {
-    console.log(arrayMdFile);
-    } else {
-    console.log('No es un archivo markdown');
+  // **************************
+  const route = require('./index.js');
+  const validate = require('./axiosvalidate.js');
+  
+  const mdLinks = (inputPath, options = { validate: false }) => new Promise((resolve) => {
+    if (route.isValidRoute(inputPath)) {
+      if (options.validate === true) {
+        resolve(validate.validateLinks(inputPath));
+      } else {
+        console.log("linksMd");
+        resolve(route.getLinksMd(inputPath));
+        console.log("Links resolved successfully!");
+      }
     }
+  });
+  module.exports = { mdLinks };
+  //****************************************************************** */
 
-    
-
-// const validator = require('./index.js');
-
-// const route = './samplesFiles';
-// console.log(validator.isValidRoute(route));
+  
+ 
 
 
-// // const route = './samplesFiles';
-// const isRouteValid = validator.isValidRoute(route);
 
-// if (isRouteValid) {
-//   console.log(`La ruta "${route}" existe en el sistema de archivos.`);
+
+// if (isValidRoute(sampleFile)) {
+//   console.log(`${sampleFile} exists.`); 
 // } else {
-//   console.log(`La ruta "${route}" NO existe en el sistema de archivos.`);
+//   console.log(`${sampleFile} does not exist.`);
 // }
+ 
+// if (isFile(sampleFile)) {
+//     console.log(`${sampleFile} is a file`);
+//   } else {
+//     console.log(`${sampleFile} is not a file`);
+//   }
+
+//   if (isMdFile(sampleFile)) {
+//     console.log(`${sampleFile} is an  .md file `);
+//   } else {
+//     console.log(`${sampleFile} is NOPT a .md file`);
+//   }
+
+//   const absoluteRoute = getAbsoluteRoute(sampleFile);
+
+// if (path.isAbsolute(absoluteRoute)) {
+//   console.log(`La ruta es absoluta: ${absoluteRoute}`);
+// } else {
+//   console.log(`La ruta no es absoluta, aquí está resuelta: ${absoluteRoute}`);
+// }
+// const mdFiles = getMdFiles(sampleFile);
+// mdFiles.forEach(file => console.log(getLinksMd(file)));
+
+
+// validateLinks('./samplesFiles')
+//   .then((res) => console.log(res));
+
+// const arrayLinks = getLinksMd(sampleFile);
+// console.log(arrayLinks);
+//************************************ */
+// validateLinks(sampleFile)
+
+//   .then((res) => console.log(res))
+//   .catch((err) => console.error(err));
+
+
+// console.log(getLinksMd(mdFiles));  getLinksMd esta esperando una ruta de archivo en forma de cadena pero en lugar de eso 
+// tieneun arreglo de archivos (mdFiles)asi que
+//hay que  iterar sobre el arreglo de archivos y llamar getLinksMd para cada archivo inddividualmente
+// if (isDirectory(sampleFile)) {
+//   console.log(`${sampleFile} es un directorio.`);
+// } else {
+//   console.log(`${sampleFile} no es un directorio.`);
+// }  
+
+
+
+// if (isValidRoute(sampleFile)) {
+//     const mdFiles = getMdFiles(sampleFile);
+//     console.log('MD files:', mdFiles);
+//     getLinksMd(sampleFile).then((links) => {
+//       console.log('Links:', links);
+//     }).catch((err) => {
+//       console.error(err);
+//     });
+//   } else {
+//     console.error(`The route ${sampleFile} doesn't exist`);
+//   }
