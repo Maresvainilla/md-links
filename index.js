@@ -37,54 +37,39 @@ const getMdFiles = (routeFile) => {//funcion RECURSICVA
 
 
 const getLinksMd = (route) => {
-  try {
-    const arrayMdFiles = getMdFiles(route);
-    const arrayofLinks = [];
-    // const regex = /\[(.*?)\]\((.*?)\)/g; 
-    // const regex = /\[.*\]\((https?:\/\/\S+)\)/g;
-    const regex = /\[(.*)\]\((https?:\/\/\S+)\)/g;
-    let filesProcessed = 0;
-    arrayMdFiles.forEach((filePath) => {
-      fs.readFile(filePath, 'utf8', (err, file) => {
-        if (err) {
-          throw err;
-        }
-        let match;
-        while ((match = regex.exec(file)) !== null) {
-          arrayofLinks.push({
-            href: match[2],
-            text: match[1],
-            path: filePath,
-          });
-        }
-        filesProcessed += 1;
-        if (filesProcessed === arrayMdFiles.length) {
-          console.log(arrayofLinks);
-        }
+  return new Promise((resolve, reject) => {
+    try {
+      const arrayMdFiles = getMdFiles(route);
+      const arrayofLinks = [];
+      const regex = /\[(.*)\]\((https?:\/\/\S+)\)/g;
+      let filesProcessed = 0;
+      arrayMdFiles.forEach((filePath) => {
+        fs.readFile(filePath, 'utf8', (err, file) => {
+          if (err) {
+            reject(err);
+          }
+          let match;
+          while ((match = regex.exec(file)) !== null) {
+            arrayofLinks.push({
+              href: match[2],
+              text: match[1],
+              path: filePath,
+            });
+          }
+          filesProcessed += 1;
+          if (filesProcessed === arrayMdFiles.length) {
+            // console.log("verificandoarraysdelinks",arrayofLinks)
+            resolve(arrayofLinks);
+          }
+        });
       });
-    });
-  } catch (err) {
-    console.error('An error occurred:', err);
-  }
+    } catch (err) {
+      reject(err);
+    }
+  });
 };
 
-// const getLinksMd = (route) => {
-//   const arrayMdFiles = getMdFiles(route);
-//   const arrayofLinks = [];
-//   const regex = /\[(.*?)\]\((.*?)\)/g;
-//   arrayMdFiles.forEach((filePath) => {
-//     const file = fs.readFileSync(filePath, 'utf8');
-//     let match;
-//     while ((match = regex.exec(file)) !== null) {
-//       arrayofLinks.push({
-//         href: match[2],
-//         text: match[1],
-//         path: filePath,
-//       });
-//     }
-//   });
-//   return arrayofLinks;
-// };
+
 
 
 
