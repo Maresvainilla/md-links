@@ -1,7 +1,7 @@
 
 
-// // const cli = require('./cli.js');
-// // const { cli, } = require('./test.js');
+// const cli = require('./cli.js');
+// const { cli, } = require('./test.js');
 // const { cli } = require('./cli.js');
 // const { getAbsoluteRoute,} = require('./index.js');
 // const path = require('path');
@@ -11,7 +11,7 @@
 // const arg1 = '--validate';
 // const arg2 = '--stats';
 
-// cli(route,arg1,)
+// cli(route,arg1,arg2)
 //   .then((result) => {
 //     console.log(result);
 //   })

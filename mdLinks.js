@@ -26,7 +26,7 @@ const { validateLinks } = require('./axiosvalidate.js');
       if (options.validate === true) {
         resolve(validate.validateLinks(inputPath));
       } else {
-        console.log("linksMd");
+        // console.log("linksMd");
         resolve(route.getLinksMd(inputPath));
         console.log("Links resolved successfully!");
       }
