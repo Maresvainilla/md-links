@@ -66,7 +66,7 @@ describe('Funcion validar los Link encontrados en Archivo md', () => {
     expect(typeof mdLink.mdLinks).toBe('function');
   });
 
-  it.only('Deberia retornar un array de obj sin validar los enlaces', () => expect(mdLink.mdLinks('./samplesFiles')).resolves.toEqual(outputFalse));
+  it('Deberia retornar un array de obj sin validar los enlaces', () => expect(mdLink.mdLinks('./samplesFiles')).resolves.toEqual(outputFalse));
 
   it('Deberia validar los enlaces', (done) => mdLink.mdLinks('./samplesFiles', { validate: true })
     .then((response) => {

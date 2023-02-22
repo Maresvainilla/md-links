@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 
- console.log("algo1");
+//  console.log("algo1");
  const fs = require('fs');
 const api = require('./mdLinks.js');
 const opt = require('./options.js');
 
 
-console.log("algo2");
+// console.log("algo2");
 
 
 const cli = (route, arg1, arg2) => {
@@ -14,12 +14,12 @@ const cli = (route, arg1, arg2) => {
   if (!fs.existsSync(route)) {
     return Promise.reject(new Error('Invalid path'));
   }
-  console.log("imprimir",route,arg1,arg2);
+  // console.log("imprimir",route,arg1,arg2);
   const validate = opt.getObjValidate(arg1, arg2);
   return api.mdLinks(route, validate)
 
     .then((response) => {
-      console.log("quellega",validate)
+      // console.log("quellega",validate)
       let result = '';
       if (response.length === 0) {
         result = 'md file or link not found';
@@ -28,18 +28,16 @@ const cli = (route, arg1, arg2) => {
         result = opt.statValidateLinks(response);
       }
       if (arg1 === '--stats' && arg2 === undefined) {
-        console.log("quellegaeeeee")
+        // console.log("quellegaeeeee")
         result = opt.statsLinks(response);
       }
-      // if (arg1 === '--stats' && arg2 !== undefined) {//partenew
-      //   result = 'The option does not exist';
-      // }
+     
       if (arg1 === '--validate' && arg2 === undefined) {
         response.forEach((element) => {
           if (element.statusText !== 'OK') {
-            result += `\n${element.path} \n${element.href} \n${element.status} \n${element.statusText} \n${element.text} ✘`;
+            result += `\nfile----${element.path} \nhref---${element.href} \nstatus---${element.status} \nstatus---${element.statusText} \ntext---${element.text} ✘\n`;
           } else {
-            result += `\n${element.path} \n${element.href} \n${element.status} \n${element.statusText} \n${element.text} ✔`;
+            result += `\nfile----${element.path} \nhref---${element.href} \nstatus---${element.status} \nstatus---${element.statusText} \nText---${element.text} ✔\n`;
           }
         });
       }
@@ -47,7 +45,7 @@ const cli = (route, arg1, arg2) => {
         // console.log("sinvalidate")
         response.forEach((element) => {
 
-          result += `\n${element.path}\n${element.href}\n${element.text}\n`;
+          result += `\nfile---${element.path}\nhref---${element.href}\nText---${element.text}\n`;
         });
       }
       if (arg1 !== '--stats' && arg1 !== '--validate' && arg1 !== undefined) {
